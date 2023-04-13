@@ -5,7 +5,7 @@ const path = require('path');
 const runYTDLP = (reqAudio) => {
     return new Promise((suc, nosuc) => {
         let pyScriptDir = __dirname + '/public/scripts/ytdlp.py'
-        
+
         const { spawn } = require('child_process')
         const pyprog = spawn('python', [pyScriptDir, reqAudio])
 
@@ -22,13 +22,11 @@ app.get('/searchAudio', function (req, res) {
     })
 })
 
-
 // Routes. 
 app.use('/', require('./routes/index'));    // Home page.
 app.use('/users', require('./routes/users'));   // To be implemented.
 app.use('/public', express.static(process.cwd() + '/public'));
 app.set('view engine', 'css');
-
 
 const PORT = process.env.PORT || 5000;
 

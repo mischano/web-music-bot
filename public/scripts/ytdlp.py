@@ -1,10 +1,8 @@
 import sys
-import json
 import yt_dlp
 
+requestedAudio = ' '.join(sys.argv[1:])
 
-item = ' '.join(sys.argv[1:])
-print(item)
 ydl_opts = {
     'format': 'bestaudio/best',
     'quiet': True,
@@ -21,10 +19,9 @@ res = {
 }
 
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-    info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
+    info = ydl.extract_info("ytsearch:%s" % requestedAudio, download=False)['entries'][0]
 
 res['url'] = info['formats'][3]['url']
 res['title'] = info['title']
 
 print(res)
-# print(info['formats'][3]['url'])
