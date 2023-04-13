@@ -2,21 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-
-// let runPy = new Promise(function (suc, nosuc) {
-//     const { spawn } = require('child_process')
-//     let arg = "Robbie Williams Feel"
-//     console.log(audioInquiry)
-//     const pyprog = spawn('python', ['test.py', arg])
-
-//     pyprog.stdout.on('data', function (data) {
-//         suc(data)
-//     })
-// })
-const runPy = (arg) => {
+const runYTDLP = (reqAudio) => {
     return new Promise((suc, nosuc) => {
         const { spawn } = require('child_process')
-        const pyprog = spawn('python', ['test.py', arg])
+        const pyprog = spawn('python', ['test.py', reqAudio])
 
         pyprog.stdout.on('data', function (data) {
             suc(data)
@@ -24,20 +13,17 @@ const runPy = (arg) => {
     })
 }
 
-app.get('/foo', function (req, res) {
-    let audioInquiry = req.query.song
-    runPy(audioInquiry).then(function (fromRunpy) {
-        console.log(fromRunpy.toString())
-        res.end(fromRunpy)
+app.get('/searchAudio', function (req, res) {
+    let queryParam = req.query.queryMsg
+    runYTDLP(queryParam).then(function (fromYTDLP) {
+        res.end(fromYTDLP)
     })
 })
 
 
-// Routes
-app.use('/', require('./routes/index'));
-// app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
-
+// Routes. 
+app.use('/', require('./routes/index'));    // Home page.
+app.use('/users', require('./routes/users'));   // To be implemented.
 app.use('/public', express.static(process.cwd() + '/public'));
 app.set('view engine', 'css');
 

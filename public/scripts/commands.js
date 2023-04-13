@@ -8,7 +8,7 @@ const Play = async strInput => {
 }
 
 function fetchAudio(val) {
-    const x = fetch(`/foo?song=${val}`)
+    const x = fetch(`/searchAudio?queryMsg=${val}`)
     .then(data => data.text())
     .then((src) => {
         return src;
@@ -44,7 +44,7 @@ function fetchAudio(val) {
 
 function Pause() {
     console.log("pause");
-    fetch('/foo')
+    fetch('/searchAudio')
         .then(res => res.text())
         .then(data => console.log(data))
     return;
