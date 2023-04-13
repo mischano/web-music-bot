@@ -10,6 +10,20 @@ function init() {
     cursor.style.left = "0px";
 }
 
+var git = 0;
+var pw = false;
+let pwd = false;
+var commands = [];  // Command history
+
+function defaultPrompt() {
+    commands.push(command.innerHTML);
+    git = commands.length;
+    addLine("mansur:~$ " + command.innerHTML, "no-animation", 0);
+    parseCommand(command.innerHTML);
+    command.innerHTML = "";
+    textarea.value = "";
+}
+
 function addLine(text, style, time) {
     var t = "";
     for (let i = 0; i < text.length; i++) {

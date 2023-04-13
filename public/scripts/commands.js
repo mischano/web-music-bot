@@ -1,10 +1,46 @@
-function Play(strInput) {
-    audioName = strInput.slice(5)
-    fetch(`/foo?song=${audioName}`)
-        .then(res => res.text())
-        .then(data => console.log(data))
-    return;
+var queue = [];
+
+const Play = async strInput => {
+    var requestedAudio = strInput.slice(5);
+
+    const fetchedAudio = await fetchAudio(requestedAudio);
+    console.log(fetchedAudio)
 }
+
+function fetchAudio(val) {
+    const x = fetch(`/foo?song=${val}`)
+    .then(data => data.text())
+    .then((src) => {
+        return src;
+    })
+
+    return x;
+}
+
+// function Play(strInput) {
+//     // const audioContext = new AudioContext();
+//     // // get the audio element
+//     // const audioElement = document.querySelector("audio");
+
+//     // // pass it into the audio context
+//     // const track = audioContext.createMediaElementSource(audioElement);
+//     // track.connect(audioContext.destination);
+
+//     audioName = strInput.slice(5)
+//     const url = async 
+
+//     // var url;
+//     // fetch(`/foo?song=${audioName}`)
+//     //     .then(res => res.text())
+//     //     .then(data => console.log(data))
+
+//     return;
+// }
+
+// function fetchAudio(audioName) {
+//     fetch(`/foo?song=${audioName}`)
+//     .then()
+// }
 
 function Pause() {
     console.log("pause");

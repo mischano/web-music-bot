@@ -69,7 +69,7 @@ b {
 
 #liner::before {
     color: #519975;
-    content: "visitor@fkcodes.com:~$";
+    content: "mansur:~$";
 }
 
 #liner.password::before {

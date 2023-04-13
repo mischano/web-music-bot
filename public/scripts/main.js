@@ -5,15 +5,15 @@ var textarea = document.getElementById("texter");
 var terminal = document.getElementById("terminal");
 
 
-var git = 0;
-var pw = false;
-let pwd = false;
-var commands = [];  // Command history
+// var git = 0;
+// var pw = false;
+// let pwd = false;
+// var commands = [];  // Command history
 
-setTimeout(function () {
-    loopLines(banner, "", 80);
-    textarea.focus();
-}, 100);
+// setTimeout(function () {
+//     loopLines(banner, "", 80);
+//     textarea.focus();
+// }, 100);
 
 window.addEventListener("keyup", enterKey);
 
@@ -26,8 +26,9 @@ function enterKey(e) {
     if (e.keyCode == 13) {
         commands.push(command.innerHTML);
         git = commands.length;
-        addLine("visitor@fkcodes.com:~$ " + command.innerHTML, "no-animation", 0);
-        commandParser(command.innerHTML);
+        addLine("mansur:~$ " + command.innerHTML, "no-animation", 0);
+        // defaultPrompt();
+        parseCommand(command.innerHTML);
         command.innerHTML = "";
         textarea.value = "";
     }
@@ -49,14 +50,15 @@ function enterKey(e) {
     }
 }
 
-function commandParser(cmd) {
-    strTrimmed = cmd.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
-    strList = strTrimmed.split(" ");
+function parseCommand(input) {
+    var msg = input.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
+    var msgList = msg.split(" ");
+    var cmd = msgList[0];
 
-    if (strList.length > 1) {
-        if (strList[0] == "play") {
-            Play(strTrimmed);
-        } else if (strList[0] == "remove") {
+    if (msgList.length > 1) {
+        if (cmd== "play") {
+            Play(msg);
+        } else if (cmd == "remove") {
             console.log("remove");
         } else {
             addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
@@ -65,7 +67,7 @@ function commandParser(cmd) {
         return;
     }
 
-    switch (cmd) {
+    switch (input) {
         case "help":
             loopLines(help, "color2 margin", 80);
             break;
