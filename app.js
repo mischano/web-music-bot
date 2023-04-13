@@ -4,8 +4,10 @@ const path = require('path');
 
 const runYTDLP = (reqAudio) => {
     return new Promise((suc, nosuc) => {
+        let pyScriptDir = __dirname + '/public/scripts/ytdlp.py'
+        
         const { spawn } = require('child_process')
-        const pyprog = spawn('python', ['test.py', reqAudio])
+        const pyprog = spawn('python', [pyScriptDir, reqAudio])
 
         pyprog.stdout.on('data', function (data) {
             suc(data)
