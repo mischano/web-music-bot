@@ -37,7 +37,7 @@ function enterKey(e) {
         git -= 1;
         textarea.value = commands[git];
         command.innerHTML = textarea.value;
-    } 
+    }
     // Down arrow pressed
     if (e.keyCode == 40 && git != commands.length) {
         git += 1;
@@ -50,48 +50,80 @@ function enterKey(e) {
     }
 }
 
+function validateCommand(in_) {
+    return in_.split(" ")[0];
+}
+
+function stripWhitespace(in_) {
+    return in_.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
+}
+
+function sliceMessage(in_, at) {
+    return in_.slice(at);
+}
+
 function parseCommand(input) {
-    var msg = input.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
-    var msgList = msg.split(" ");
-    var cmd = msgList[0];
-
-    if (msgList.length > 1) {
-        if (cmd== "play") {
-            Play(msg);
-        } else if (cmd == "remove") {
-            console.log("remove");
-        } else {
-            addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
-            console.log("Invalid input");
-        }
-        return;
-    }
-
-    switch (input) {
+    let input_ = stripWhitespace(input);
+    let cmd = validateCommand(input_);
+    switch (cmd) {
         case "help":
             loopLines(help, "color2 margin", 80);
             break;
-        case "pause":
-            Pause();
-            break;
-        case "resume":
-            console.log("resume");
-            break;
-        case "current":
-            console.log("current");
-            break;
-        case "skip":
-            console.log("skip");
-            break;
-        case "list":
-            console.log("list");
-            break;
-        case "shuffle":
-            console.log("shuffle");
+        case "play":
+            msg = sliceMessage(input_, 5);
+            if (msg.length > 0) {
+                Play(msg);
+            }
+            else {
+                addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+            }
             break;
         default:
             addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
             console.log("Invalid input");
             break;
     }
+    // var msg = input.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
+    // var msgList = msg.split(" ");
+    // var cmd = msgList[0];
+
+    // if (msgList.length > 1) {
+    //     if (cmd== "play") {
+    //         Play(msg);
+    //     } else if (cmd == "remove") {
+    //         console.log("remove");
+    //     } else {
+    //         addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+    //         console.log("Invalid input");
+    //     }
+    //     return;
+    // }
+
+    // switch (input) {
+    //     case "help":
+    //         loopLines(help, "color2 margin", 80);
+    //         break;
+    //     case "pause":
+    //         Pause();
+    //         break;
+    //     case "resume":
+    //         console.log("resume");
+    //         break;
+    //     case "current":
+    //         console.log("current");
+    //         break;
+    //     case "skip":
+    //         console.log("skip");
+    //         break;
+    //     case "list":
+    //         console.log("list");
+    //         break;
+    //     case "shuffle":
+    //         console.log("shuffle");
+    //         break;
+    //     default:
+    //         addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+    //         console.log("Invalid input");
+    //         break;
+    // }
 }
