@@ -58,47 +58,35 @@ function stripWhitespace(in_) {
     return in_.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
 }
 
-function sliceMessage(in_, at) {
+function sliceMessageAt(in_, at) {
     return in_.slice(at);
 }
 
 function parseCommand(input) {
     let input_ = stripWhitespace(input);
     let cmd = validateCommand(input_);
+
     switch (cmd) {
         case "help":
             loopLines(help, "color2 margin", 80);
             break;
         case "play":
-            msg = sliceMessage(input_, 5);
+            msg = sliceMessageAt(input_, 5);
             if (msg.length > 0) {
-                Play(msg);
+                audioManager(msg);
             }
             else {
                 addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
             }
+            break;
+        case "pause":
+            pauseAudio();
             break;
         default:
             addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
             console.log("Invalid input");
             break;
     }
-    // var msg = input.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
-    // var msgList = msg.split(" ");
-    // var cmd = msgList[0];
-
-    // if (msgList.length > 1) {
-    //     if (cmd== "play") {
-    //         Play(msg);
-    //     } else if (cmd == "remove") {
-    //         console.log("remove");
-    //     } else {
-    //         addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
-    //         console.log("Invalid input");
-    //     }
-    //     return;
-    // }
-
     // switch (input) {
     //     case "help":
     //         loopLines(help, "color2 margin", 80);

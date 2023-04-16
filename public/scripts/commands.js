@@ -1,10 +1,39 @@
+var audio;
 var queue = [];
 
-const Play = async strInput => {
-    var requestedAudio = strInput.slice(5);
+window.addEventListener('load', createAudioObj, false);
+function createAudioObj() {
+    audio = new Audio();
+}
 
-    const fetchedAudio = await fetchAudio(requestedAudio);
-    console.log(fetchedAudio)
+audio.addEventListener('ended', function() {
+    playNextAudio(); 
+})
+
+const audioManager = async audioName => {
+    const fetchedAudio = await fetchAudio(audioName);
+
+    if (isAudioPlaying()) {
+        queue.push(fetchedAudio);
+        addLine("<span class=\"inherit\">Audio is added to the queue.</span>", "error", 100);
+        return;
+    }
+
+    audio.src = fetchedAudio;
+    audio.load();
+    audio.play();
+    audio.volume = 0.1;
+}
+
+function playNextAudio() {
+    
+}
+
+function isAudioPlaying() {
+    if (audio.duration > 0 && !audio.paused) {
+        return true;
+    }
+    return false;
 }
 
 function fetchAudio(val) {
@@ -17,36 +46,9 @@ function fetchAudio(val) {
     return x;
 }
 
-// function Play(strInput) {
-//     // const audioContext = new AudioContext();
-//     // // get the audio element
-//     // const audioElement = document.querySelector("audio");
-
-//     // // pass it into the audio context
-//     // const track = audioContext.createMediaElementSource(audioElement);
-//     // track.connect(audioContext.destination);
-
-//     audioName = strInput.slice(5)
-//     const url = async 
-
-//     // var url;
-//     // fetch(`/foo?song=${audioName}`)
-//     //     .then(res => res.text())
-//     //     .then(data => console.log(data))
-
-//     return;
-// }
-
-// function fetchAudio(audioName) {
-//     fetch(`/foo?song=${audioName}`)
-//     .then()
-// }
-
-function Pause() {
-    console.log("pause");
-    fetch('/searchAudio')
-        .then(res => res.text())
-        .then(data => console.log(data))
+function pauseAudio() {
+    console.log(audio.duration);
+    console.log(audio.paused);
     return;
 }
 

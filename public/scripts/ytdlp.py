@@ -24,4 +24,4 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 res['url'] = info['formats'][3]['url']
 res['title'] = info['title']
 
-print(res)
+print(res['url'])
