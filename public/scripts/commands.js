@@ -1,37 +1,29 @@
 var audio = new Audio();
 var queue = [];
 
-var audioObj = function(t, u) {
-    this.title = t;
-    this.url = u;
+class audioObj {
+    constructor(t, u) {
+        this.title = t;
+        this.url = u;
+    }
 }
-
-// window.addEventListener('load', createAudioObj, false);
-// function createAudioObj() {
-//     audio = new Audio();
-// }
 
 audio.addEventListener('ended', function () {
     playNextAudio();
 })
 
 function parseTitle(_in) {
-    // let title = _in.substring(
-    //     _in.search(/AUDIO_TITLE:/) + 13,
-    //     _in.search(/AUDIO_URL:/)
-    // console.log(_in);
-    // console.log(_in.search(/AUDIO_URL:/));
-    // return title;
-    
-    let t = _in.indexOf("AUDIO_TITLE:");
-    console.log(t);
+    let title = _in.substring(
+        _in.indexOf('AUDIO_TITLE:') + 13,
+        _in.indexOf('AUDIO_URL:')
+    );
+    return title;
 }
 
 function parseURL(_in) {
-
     let url = _in.substring(
-        _in.search(/AUDIO_URL:/) + 10,
-        _in.length - 1
+        _in.indexOf('AUDIO_URL:') + 11,
+        _in.length
     );
     return url;
 }
@@ -39,31 +31,34 @@ function parseURL(_in) {
 const audioManager = async audioName => {
     console.log("fetching the audio...");
     const fetchedAudio = await fetchAudio(audioName);
-    console.log("audio fetched.");
-    // console.log(fetchedAudio);
-    parseTitle(audioName);
-    // let title = parseTitle(audioName);
-    // let url = parseURL(audioName);
 
-    // console.log(title);
-    // console.log("\n");
-    // console.log(url);
-    return;
+    let title = parseTitle(fetchedAudio);
+    let url = parseURL(fetchedAudio);
+
+    let ao = new audioObj(title, url);
+    queue.push(ao);
+
     if (isAudioPlaying()) {
-        queue.push(fetchedAudio);
-        // addLine("<span class=\"inherit\">Song added to playlist.</span>", "error", 100);
+        let msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
+        addLine(msg, "color2 margin", 80);
         return;
     }
-
-    audio.src = fetchedAudio;
-    audio.load();
-    audio.play();
-    audio.volume = 0.1;
-    // addLine("<span class=\"inherit\">Song is playing.</span>", "color2 margin", 80);
+    else {
+        playNextAudio();
+    }
 }
 
 function playNextAudio() {
-    console.log("playNextAudio()");
+    let current = queue.shift();
+    audio.src = current.url;
+    audio.load();
+    audio.play();
+    audio.volume = 0.1;
+
+    let msg = "<span class=\"inherit\">Now playing: " + current.title + "</span>";
+    addLine(msg, "color2 margin", 80);
+
+    return;
 }
 
 function isAudioPlaying() {
@@ -123,6 +118,11 @@ function Shuffle() {
     console.log("shuffle");
     return;
 }
+
+// window.addEventListener('load', createAudioObj, false);
+// function createAudioObj() {
+//     audio = new Audio();
+// }
 
 help = [
     "<br>",
