@@ -1,21 +1,57 @@
-var audio;
+var audio = new Audio();
 var queue = [];
 
-window.addEventListener('load', createAudioObj, false);
-function createAudioObj() {
-    audio = new Audio();
+var audioObj = function(t, u) {
+    this.title = t;
+    this.url = u;
 }
 
-audio.addEventListener('ended', function() {
-    playNextAudio(); 
+// window.addEventListener('load', createAudioObj, false);
+// function createAudioObj() {
+//     audio = new Audio();
+// }
+
+audio.addEventListener('ended', function () {
+    playNextAudio();
 })
 
-const audioManager = async audioName => {
-    const fetchedAudio = await fetchAudio(audioName);
+function parseTitle(_in) {
+    // let title = _in.substring(
+    //     _in.search(/AUDIO_TITLE:/) + 13,
+    //     _in.search(/AUDIO_URL:/)
+    // console.log(_in);
+    // console.log(_in.search(/AUDIO_URL:/));
+    // return title;
+    
+    let t = _in.indexOf("AUDIO_TITLE:");
+    console.log(t);
+}
 
+function parseURL(_in) {
+
+    let url = _in.substring(
+        _in.search(/AUDIO_URL:/) + 10,
+        _in.length - 1
+    );
+    return url;
+}
+
+const audioManager = async audioName => {
+    console.log("fetching the audio...");
+    const fetchedAudio = await fetchAudio(audioName);
+    console.log("audio fetched.");
+    // console.log(fetchedAudio);
+    parseTitle(audioName);
+    // let title = parseTitle(audioName);
+    // let url = parseURL(audioName);
+
+    // console.log(title);
+    // console.log("\n");
+    // console.log(url);
+    return;
     if (isAudioPlaying()) {
         queue.push(fetchedAudio);
-        addLine("<span class=\"inherit\">Audio is added to the queue.</span>", "error", 100);
+        // addLine("<span class=\"inherit\">Song added to playlist.</span>", "error", 100);
         return;
     }
 
@@ -23,10 +59,11 @@ const audioManager = async audioName => {
     audio.load();
     audio.play();
     audio.volume = 0.1;
+    // addLine("<span class=\"inherit\">Song is playing.</span>", "color2 margin", 80);
 }
 
 function playNextAudio() {
-    
+    console.log("playNextAudio()");
 }
 
 function isAudioPlaying() {
@@ -38,10 +75,10 @@ function isAudioPlaying() {
 
 function fetchAudio(val) {
     const x = fetch(`/searchAudio?queryMsg=${val}`)
-    .then(data => data.text())
-    .then((src) => {
-        return src;
-    })
+        .then(data => data.text())
+        .then((src) => {
+            return src;
+        })
 
     return x;
 }

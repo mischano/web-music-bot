@@ -16,10 +16,12 @@ const runYTDLP = (reqAudio) => {
 }
 
 app.get('/searchAudio', function (req, res) {
+    console.log("app.get:fetch request received.")
     let queryParam = req.query.queryMsg
     runYTDLP(queryParam).then(function (fromYTDLP) {
         res.end(fromYTDLP)
     })
+    console.log("python script finished.")
 })
 
 // Routes. 

@@ -10,10 +10,10 @@ function init() {
     cursor.style.left = "0px";
 }
 
-var git = 0;
-var pw = false;
-let pwd = false;
-var commands = [];  // Command history
+// var git = 0;
+// var pw = false;
+// let pwd = false;
+// var commands = [];  // Command history
 
 function defaultPrompt() {
     commands.push(command.innerHTML);

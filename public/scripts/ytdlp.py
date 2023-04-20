@@ -13,15 +13,19 @@ ydl_opts = {
     }],
 }
 
-res = {
-    'title': None,
-    'url': None,
-}
+# res = {
+#     'AUDIO_TITLE': None,
+#     'AUDIO_URL': None,
+# }
+res = ""
 
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
     info = ydl.extract_info("ytsearch:%s" % requestedAudio, download=False)['entries'][0]
 
-res['url'] = info['formats'][3]['url']
-res['title'] = info['title']
+res = res + "AUDIO_TITLE: " + info['title']
+res = res + " "
+res = res + "AUDIO_URL: " + info['formats'][3]['url']
+# res['AUDIO_URL'] = info['formats'][3]['url']
+# res['AUDIO_TITLE'] = info['title']
 
-print(res['url'])
+print(res)

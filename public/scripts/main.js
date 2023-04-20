@@ -5,15 +5,15 @@ var textarea = document.getElementById("texter");
 var terminal = document.getElementById("terminal");
 
 
-// var git = 0;
-// var pw = false;
-// let pwd = false;
-// var commands = [];  // Command history
+var git = 0;
+var pw = false;
+let pwd = false;
+var commands = [];  // Command history
 
-// setTimeout(function () {
-//     loopLines(banner, "", 80);
-//     textarea.focus();
-// }, 100);
+setTimeout(function () {
+    loopLines(banner, "", 80);
+    textarea.focus();
+}, 100);
 
 window.addEventListener("keyup", enterKey);
 
@@ -68,9 +68,11 @@ function parseCommand(input) {
 
     switch (cmd) {
         case "help":
+            console.log("parsed command:help");
             loopLines(help, "color2 margin", 80);
             break;
         case "play":
+            console.log("parsed command:play");
             msg = sliceMessageAt(input_, 5);
             if (msg.length > 0) {
                 audioManager(msg);
@@ -87,31 +89,4 @@ function parseCommand(input) {
             console.log("Invalid input");
             break;
     }
-    // switch (input) {
-    //     case "help":
-    //         loopLines(help, "color2 margin", 80);
-    //         break;
-    //     case "pause":
-    //         Pause();
-    //         break;
-    //     case "resume":
-    //         console.log("resume");
-    //         break;
-    //     case "current":
-    //         console.log("current");
-    //         break;
-    //     case "skip":
-    //         console.log("skip");
-    //         break;
-    //     case "list":
-    //         console.log("list");
-    //         break;
-    //     case "shuffle":
-    //         console.log("shuffle");
-    //         break;
-    //     default:
-    //         addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
-    //         console.log("Invalid input");
-    //         break;
-    // }
 }
