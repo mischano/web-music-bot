@@ -11,25 +11,14 @@ class audioObj {
 audio.addEventListener('ended', function () {
     playNextAudio();
 })
-
-function parseTitle(_in) {
-    let title = _in.substring(
-        _in.indexOf('AUDIO_TITLE:') + 13,
-        _in.indexOf('AUDIO_URL:')
-    );
-    return title;
-}
-
-function parseURL(_in) {
-    let url = _in.substring(
-        _in.indexOf('AUDIO_URL:') + 11,
-        _in.length
-    );
-    return url;
-}
-
+// Play() calls audioManager().
+/*
+    audioManager():
+        *fetches requested audio.
+        *pushes it into the queue.
+        *Calls playNextAudio().
+ */
 const audioManager = async audioName => {
-    console.log("fetching the audio...");
     const fetchedAudio = await fetchAudio(audioName);
 
     let title = parseTitle(fetchedAudio);
@@ -48,35 +37,20 @@ const audioManager = async audioName => {
     }
 }
 
-function playNextAudio() {
-    let current = queue.shift();
-    audio.src = current.url;
-    audio.load();
-    audio.play();
-    audio.volume = 0.1;
-
-    let msg = "<span class=\"inherit\">Now playing: " + current.title + "</span>";
-    addLine(msg, "color2 margin", 80);
-
-    return;
-}
-
-function isAudioPlaying() {
-    if (audio.duration > 0 && !audio.paused) {
-        return true;
-    }
-    return false;
-}
-
-function fetchAudio(val) {
-    const x = fetch(`/searchAudio?queryMsg=${val}`)
-        .then(data => data.text())
-        .then((src) => {
-            return src;
-        })
-
-    return x;
-}
+// function Play(audioName) {
+//     let res = audioManager(audioName);
+//     switch (res) {
+//         case 1:
+//             print: "now playing " + title;
+//             break;
+//         case 0:
+//             print: "added to the queue " + title;
+//             break;
+//         default:
+//             print: "Error playing audio " + title;
+//             break;
+//     }
+// }
 
 function pauseAudio() {
     console.log(audio.duration);
@@ -117,6 +91,56 @@ function AudioList() {
 function Shuffle() {
     console.log("shuffle");
     return;
+}
+
+function playNextAudio() {
+    if (queue.length == 0 || isAudioPlaying()) {
+        return;
+    }
+    
+    let current = queue.shift();
+    audio.src = current.url;
+    audio.load();
+    audio.play();
+    audio.volume = 0.1;
+
+    let msg = "<span class=\"inherit\">Now playing: " + current.title + "</span>";
+    addLine(msg, "color2 margin", 80);
+
+    return;
+}
+
+function fetchAudio(val) {
+    const x = fetch(`/searchAudio?queryMsg=${val}`)
+        .then(data => data.text())
+        .then((src) => {
+            return src;
+        })
+
+    return x;
+}
+
+function parseTitle(_in) {
+    let title = _in.substring(
+        _in.indexOf('AUDIO_TITLE:') + 13,
+        _in.indexOf('AUDIO_URL:')
+    );
+    return title;
+}
+
+function parseURL(_in) {
+    let url = _in.substring(
+        _in.indexOf('AUDIO_URL:') + 11,
+        _in.length
+    );
+    return url;
+}
+
+function isAudioPlaying() {
+    if (audio.duration > 0 && !audio.paused) {
+        return true;
+    }
+    return false;
 }
 
 // window.addEventListener('load', createAudioObj, false);
