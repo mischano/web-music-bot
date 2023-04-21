@@ -1,60 +1,24 @@
-var audio = new Audio();
-var queue = [];
-
-class audioObj {
-    constructor(t, u) {
-        this.title = t;
-        this.url = u;
+function Play(audioName) {
+    let res = audioPlayer(audioName);
+    let msg = "";
+    let title = currentAudio.title
+    if (res == 0) {
+        msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
+    } else {
+        msg = "<span class=\"inherit\">Now playing: " + title + "</span>";
     }
+    addLine(msg, "color2 margin", 80);
+    
+    return;
 }
 
-audio.addEventListener('ended', function () {
-    playNextAudio();
-})
-// Play() calls audioManager().
-/*
-    audioManager():
-        *fetches requested audio.
-        *pushes it into the queue.
-        *Calls playNextAudio().
- */
-const audioManager = async audioName => {
-    const fetchedAudio = await fetchAudio(audioName);
-
-    let title = parseTitle(fetchedAudio);
-    let url = parseURL(fetchedAudio);
-
-    let ao = new audioObj(title, url);
-    queue.push(ao);
-
-    if (isAudioPlaying()) {
-        let msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
-        addLine(msg, "color2 margin", 80);
-        return;
+function Pause() {
+    if (!pauseAudio()) {
+        msg = "<span class=\"inherit\">Paused.</span>";
     }
     else {
-        playNextAudio();
+        msg = "<span class=\"inherit\">Failed to paused.</span>";
     }
-}
-
-// function Play(audioName) {
-//     let res = audioManager(audioName);
-//     switch (res) {
-//         case 1:
-//             print: "now playing " + title;
-//             break;
-//         case 0:
-//             print: "added to the queue " + title;
-//             break;
-//         default:
-//             print: "Error playing audio " + title;
-//             break;
-//     }
-// }
-
-function pauseAudio() {
-    console.log(audio.duration);
-    console.log(audio.paused);
     return;
 }
 
@@ -91,56 +55,6 @@ function AudioList() {
 function Shuffle() {
     console.log("shuffle");
     return;
-}
-
-function playNextAudio() {
-    if (queue.length == 0 || isAudioPlaying()) {
-        return;
-    }
-    
-    let current = queue.shift();
-    audio.src = current.url;
-    audio.load();
-    audio.play();
-    audio.volume = 0.1;
-
-    let msg = "<span class=\"inherit\">Now playing: " + current.title + "</span>";
-    addLine(msg, "color2 margin", 80);
-
-    return;
-}
-
-function fetchAudio(val) {
-    const x = fetch(`/searchAudio?queryMsg=${val}`)
-        .then(data => data.text())
-        .then((src) => {
-            return src;
-        })
-
-    return x;
-}
-
-function parseTitle(_in) {
-    let title = _in.substring(
-        _in.indexOf('AUDIO_TITLE:') + 13,
-        _in.indexOf('AUDIO_URL:')
-    );
-    return title;
-}
-
-function parseURL(_in) {
-    let url = _in.substring(
-        _in.indexOf('AUDIO_URL:') + 11,
-        _in.length
-    );
-    return url;
-}
-
-function isAudioPlaying() {
-    if (audio.duration > 0 && !audio.paused) {
-        return true;
-    }
-    return false;
 }
 
 // window.addEventListener('load', createAudioObj, false);

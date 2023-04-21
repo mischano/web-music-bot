@@ -75,14 +75,14 @@ function parseCommand(input) {
             console.log("parsed command:play");
             msg = sliceMessageAt(input_, 5);
             if (msg.length > 0) {
-                audioManager(msg);
+                Play(msg);
             }
             else {
                 addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
             }
             break;
         case "pause":
-            pauseAudio();
+            Pause();
             break;
         default:
             addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
