@@ -1,19 +1,15 @@
 function Play(audioName) {
-    let res = audioPlayer(audioName);
-    let msg = "";
-    let title = currentAudio.title
-    if (res == 0) {
+    if (audioPlayer(audioName)) {
+        let title = currentAudio.title;
         msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
-    } else {
-        msg = "<span class=\"inherit\">Now playing: " + title + "</span>";
+        addLine(msg, "color2 margin", 80);
+        return;
     }
-    addLine(msg, "color2 margin", 80);
-    
     return;
 }
 
 function Pause() {
-    if (!pauseAudio()) {
+    if (pauseAudio()) {
         msg = "<span class=\"inherit\">Paused.</span>";
     }
     else {
@@ -23,7 +19,11 @@ function Pause() {
 }
 
 function Resume() {
-    console.log("resume");
+    if (resumeAudio()) {
+        msg = "<span class=\"inherit\">Resumed.</span>";
+    } else {
+        msg = "<span class=\"inherit\">Failed to resume.</span>";
+    }
     return;
 }
 
@@ -38,7 +38,11 @@ function Current() {
 }
 
 function Skip() {
-    console.log("skip");
+    if (skipAudio()) {
+        msg = "<span class=\"inherit\">Skipped.</span>";
+    } else {
+        msg = "<span class=\"inherit\">Failed to skip.</span>";
+    }
     return;
 }
 

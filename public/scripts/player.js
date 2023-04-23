@@ -13,9 +13,7 @@ audio.addEventListener('ended', function () {
     playNextAudio();
 })
 
-// 1 - played successfully.
-// 0 - added to queue.
-const audioPlayer = async audioName => {
+var audioPlayer = async audioName => {
     const fetchedAudio = await fetchAudio(audioName);
 
     let title = parseTitle(fetchedAudio);
@@ -24,16 +22,11 @@ const audioPlayer = async audioName => {
     let ao = new audioObj(title, url);
     queue.push(ao);
 
-    let res;
     if (isAudioPlaying()) {
-        res = 0;
+        return true;
     }
-    else {
-        playNextAudio();
-        res = 1;
-    }
-
-    return res;
+    playNextAudio();
+    return false;
 }
 
 function playNextAudio() {
@@ -61,6 +54,29 @@ function pauseAudio() {
     }
     audio.pause();
     return true;
+}
+
+function resumeAudio() {
+    if (!isAudioPlaying()) {
+        return false;
+    }
+    audio.play();
+    return true;
+}
+
+function skipAudio() {
+    if (queue.length <= 0) {
+        if (!isAudioPlaying() || !audio.paused) {
+            return false;
+        }
+        audio.pause();
+        audio.currentTime = 0;
+        return true;
+    } else {
+        audio.pause();
+        playNextAudio();
+        return true;
+    }
 }
 
 function isAudioPlaying() {
