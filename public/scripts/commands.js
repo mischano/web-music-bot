@@ -1,11 +1,23 @@
 function Play(audioName) {
-    if (audioPlayer(audioName)) {
-        let title = currentAudio.title;
-        msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
-        addLine(msg, "color2 margin", 80);
-        return;
-    }
-    return;
+    audioPlayer(audioName)
+        .then((res) => {
+            if (res) {
+                let title = getCurrentAudioTitle();
+                msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
+                addLine(msg, "color2 margin", 80);
+                return;
+            } else {
+                return;
+            }
+        })
+    // let res = audioPlayer(audioName);
+    // if (audioPlayer(audioName)) {
+    //     let title = getCurrentAudioTitle();
+    //     msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
+    //     addLine(msg, "color2 margin", 80);
+    //     return;
+    // }
+    // return;
 }
 
 function Pause() {

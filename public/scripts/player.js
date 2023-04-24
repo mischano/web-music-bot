@@ -7,7 +7,7 @@ class audioObj {
 
 var audio = new Audio();
 var queue = [];
-var currentAudio;
+var currentAudio = null;
 
 audio.addEventListener('ended', function () {
     playNextAudio();
@@ -27,6 +27,13 @@ var audioPlayer = async audioName => {
     }
     playNextAudio();
     return false;
+}
+
+function getCurrentAudioTitle() {
+    if (currentAudio == null) {
+        return;
+    }
+    return currentAudio.title;
 }
 
 function playNextAudio() {
