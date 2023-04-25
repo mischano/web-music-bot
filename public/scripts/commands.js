@@ -2,13 +2,10 @@ function Play(audioName) {
     audioPlayer(audioName)
         .then((res) => {
             if (res) {
-                let title = getCurrentAudioTitle();
-                msg = "<span class=\"inherit\">Added to queue: " + title + "</span>";
+                msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio + "</span>";
                 addLine(msg, "color2 margin", 80);
-                return;
-            } else {
-                return;
-            }
+            } 
+            return;
         })
 }
 
@@ -19,6 +16,8 @@ function Pause() {
     else {
         msg = "<span class=\"inherit\">Failed to paused.</span>";
     }
+    addLine(msg, "color2 margin", 80);
+    
     return;
 }
 
@@ -28,16 +27,8 @@ function Resume() {
     } else {
         msg = "<span class=\"inherit\">Failed to resume.</span>";
     }
-    return;
-}
+    addLine(msg, "color2 margin", 80);
 
-function Add() {
-    console.log("add");
-    return;
-}
-
-function Current() {
-    console.log("current");
     return;
 }
 
@@ -50,8 +41,22 @@ function Skip() {
     return;
 }
 
+function Volume() {
+    
+}
+
 function Remove(arg) {
     console.log("remove");
+    return;
+}
+
+function Add() {
+    console.log("add");
+    return;
+}
+
+function Current() {
+    console.log("current");
     return;
 }
 

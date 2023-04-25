@@ -84,6 +84,9 @@ function parseCommand(input) {
         case "pause":
             Pause();
             break;
+        case "resume":
+            Resume();
+            break;
         default:
             addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
             console.log("Invalid input");

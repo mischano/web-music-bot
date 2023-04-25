@@ -6,6 +6,10 @@ class audioObj {
 }
 
 var audio = new Audio();
+var queue = [];
+
+var currentAudio;
+var lastAddedAudio;
 
 audio.addEventListener('ended', function () {
     playNextAudio();
@@ -13,11 +17,12 @@ audio.addEventListener('ended', function () {
 
 var audioPlayer = async audioName => {
     const fetchedAudio = await fetchAudio(audioName);
-
+    console.log(fetchedAudio);
     let title = parseTitle(fetchedAudio);
     let url = parseURL(fetchedAudio);
 
     let ao = new audioObj(title, url);
+    lastAddedAudio = ao;
     queue.push(ao);
 
     if (isAudioPlaying()) {
@@ -27,25 +32,19 @@ var audioPlayer = async audioName => {
     return false;
 }
 
-// function getCurrentAudioTitle() {
-//     if (currentAudio == null) {
-//         return;
-//     }
-//     return currentAudio.title;
-// }
-
 function playNextAudio() {
     if (queue.length == 0 || isAudioPlaying()) {
         return;
     }
 
-    let current = queue.shift();
-    audio.src = current.url;
+    console.log("INSIDE");
+    currentAudio = queue.shift();
+    audio.src = currentAudio.url;
     audio.load();
     audio.play();
     audio.volume = 0.1;
 
-    let msg = "<span class=\"inherit\">Now playing: " + current.title + "</span>";
+    let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
     addLine(msg, "color2 margin", 80);
 
     return;
@@ -56,14 +55,16 @@ function pauseAudio() {
         return false;
     }
     audio.pause();
+    
     return true;
 }
 
 function resumeAudio() {
-    if (!isAudioPlaying()) {
+    if (isAudioPlaying()) {
         return false;
     }
     audio.play();
+
     return true;
 }
 
