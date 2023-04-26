@@ -4,6 +4,9 @@ var command = document.getElementById("typer");
 var textarea = document.getElementById("texter");
 var terminal = document.getElementById("terminal");
 
+var CMD_NOT_FOUND = "<span class=\"inherit\">Command not found. For a list of commands," +
+    "type <span class=\"command\">'help'</span>.</span>";
+
 
 var git = 0;
 var pw = false;
@@ -50,34 +53,25 @@ function enterKey(e) {
     }
 }
 
-function validateCommand(in_) {
-    return in_.split(" ")[0];
-}
-
 function stripWhitespace(in_) {
     return in_.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
 }
 
-function sliceMessageAt(in_, at) {
-    return in_.slice(at);
-}
-
-function parseCommand(input) {
-    let input_ = stripWhitespace(input);
-    let cmd = validateCommand(input_);
-    let DEFAULT_MSG = "<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>"
+function parseCommand(in_) {
+    let str = stripWhitespace(in_)
+    let wordList = str.split(" ");
+    let command = wordList[0];
     let msg = "";
 
-    switch (cmd) {
+    switch (command) {
         case "help":
-            loopLines(help, "color2 margin", 80);
             break;
         case "play":
-            msg = sliceMessageAt(input_, 5);
+            msg = str.slice(5);
             if (msg.length > 0) {
                 Play(msg);
             } else {
-                addLine(DEFAULT_MSG, "error", 100);
+                addLine(CMD_NOT_FOUND, "error", 100);
             }
             break;
         case "pause":
@@ -86,17 +80,25 @@ function parseCommand(input) {
         case "resume":
             Resume();
             break;
+        case "list":
+            break;
+        case "current":
+            break;
+        case "remove":
+            break;
+        case "shuffle":
+            break;
         case "volume":
-            msg = sliceMessageAt(input_, 7);
+            msg = str.slice(7);
             let x = parseInt(msg);
             if (Number.isInteger(x)) {
-                Volume(msg);
+                Volume(x);
             } else {
-                addLine(DEFAULT_MSG, "error", 100);
+                addLine(CMD_NOT_FOUND, "error", 100);
             }
             break;
         default:
-            addLine(DEFAULT_MSG, "error", 100);
+            addLine(CMD_NOT_FOUND, "error", 100);
             break;
     }
 

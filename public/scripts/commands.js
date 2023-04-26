@@ -1,10 +1,10 @@
-function Play(audioName) {
-    audioPlayer(audioName)
+function Play(req) {
+    audioPlayer(req)
         .then((res) => {
             if (res) {
-                msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio + "</span>";
+                let msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio + "</span>";
                 addLine(msg, "color2 margin", 80);
-            } 
+            }
             return;
         })
 }
