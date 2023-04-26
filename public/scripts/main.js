@@ -65,20 +65,19 @@ function sliceMessageAt(in_, at) {
 function parseCommand(input) {
     let input_ = stripWhitespace(input);
     let cmd = validateCommand(input_);
+    let DEFAULT_MSG = "<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>"
+    let msg = "";
 
     switch (cmd) {
         case "help":
-            console.log("parsed command:help");
             loopLines(help, "color2 margin", 80);
             break;
         case "play":
-            console.log("parsed command:play");
             msg = sliceMessageAt(input_, 5);
             if (msg.length > 0) {
                 Play(msg);
-            }
-            else {
-                addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+            } else {
+                addLine(DEFAULT_MSG, "error", 100);
             }
             break;
         case "pause":
@@ -87,9 +86,19 @@ function parseCommand(input) {
         case "resume":
             Resume();
             break;
+        case "volume":
+            msg = sliceMessageAt(input_, 7);
+            let x = parseInt(msg);
+            if (Number.isInteger(x)) {
+                Volume(msg);
+            } else {
+                addLine(DEFAULT_MSG, "error", 100);
+            }
+            break;
         default:
-            addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
-            console.log("Invalid input");
+            addLine(DEFAULT_MSG, "error", 100);
             break;
     }
+
+    return;
 }

@@ -17,7 +17,7 @@ function Pause() {
         msg = "<span class=\"inherit\">Failed to paused.</span>";
     }
     addLine(msg, "color2 margin", 80);
-    
+
     return;
 }
 
@@ -41,8 +41,20 @@ function Skip() {
     return;
 }
 
-function Volume() {
-    
+function Volume(vol) {
+    setVolume(vol / 100);
+    let tm = "";
+    if (vol >= 100) {
+        tm = "max";
+    } else if (vol <= 0) {
+        tm = "mute";
+    } else {
+        tm = vol.toString();
+    }
+    msg = "<span class=\"inherit\">Volume is set to: " + tm + " </span>";
+    addLine(msg, "color2 margin", 80);
+
+    return;
 }
 
 function Remove(arg) {

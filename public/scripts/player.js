@@ -55,7 +55,7 @@ function pauseAudio() {
         return false;
     }
     audio.pause();
-    
+
     return true;
 }
 
@@ -81,6 +81,19 @@ function skipAudio() {
         playNextAudio();
         return true;
     }
+}
+
+function setVolume(vol) {
+    let v = 0;
+    if (vol >= 1) {
+        v = 1;
+    } else if (vol <= 0) {
+        v = 0;
+    } else {
+        v = vol;
+    }
+    audio.volume = v;
+    return true;
 }
 
 function isAudioPlaying() {
