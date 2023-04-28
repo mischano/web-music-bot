@@ -1,9 +1,12 @@
+let msg = "";
+
 function Play(req) {
     audioPlayer(req)
         .then((res) => {
             if (res) {
-                let msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio + "</span>";
+                msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio.title + "</span>";
                 addLine(msg, "color2 margin", 80);
+                msg = "";
             }
             return;
         })
@@ -17,6 +20,7 @@ function Pause() {
         msg = "<span class=\"inherit\">Failed to paused.</span>";
     }
     addLine(msg, "color2 margin", 80);
+    msg = "";
 
     return;
 }
@@ -28,6 +32,7 @@ function Resume() {
         msg = "<span class=\"inherit\">Failed to resume.</span>";
     }
     addLine(msg, "color2 margin", 80);
+    msg = "";
 
     return;
 }
@@ -38,6 +43,21 @@ function Skip() {
     } else {
         msg = "<span class=\"inherit\">Failed to skip.</span>";
     }
+    addLine(msg, "color2 margin", 80);
+    msg = "";
+
+    return;
+}
+
+function Current() {
+    if (isAudioPlaying()) {
+        msg = "<span class=\"inherit\">Currently playing: " + currentAudio.title + "</span>";
+    } else {
+        msg = "<span class=\"inherit\">Playlist is empty.</span>";
+    }
+    addLine(msg, "color2 margin", 80);
+    msg = "";
+
     return;
 }
 
@@ -53,7 +73,8 @@ function Volume(vol) {
     }
     msg = "<span class=\"inherit\">Volume is set to: " + tm + " </span>";
     addLine(msg, "color2 margin", 80);
-
+    msg = "";
+    
     return;
 }
 
@@ -67,13 +88,8 @@ function Add() {
     return;
 }
 
-function Current() {
-    console.log("current");
-    return;
-}
-
-function AudioList() {
-    console.log("audiolist");
+function List() {
+    loopLines(audioList(), "", 80);
     return;
 }
 

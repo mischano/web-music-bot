@@ -63,6 +63,7 @@ function parseCommand(in_) {
     let command = wordList[0];
     let msg = "";
 
+    console.log(command);
     switch (command) {
         case "help":
             break;
@@ -80,9 +81,14 @@ function parseCommand(in_) {
         case "resume":
             Resume();
             break;
+        case "skip":
+            Skip();
+            break;
         case "list":
+            List();
             break;
         case "current":
+            Current();
             break;
         case "remove":
             break;

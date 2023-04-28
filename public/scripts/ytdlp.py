@@ -20,7 +20,10 @@ ydl_opts = {
 res = ""
 
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-    info = ydl.extract_info("ytsearch:%s" % requestedAudio, download=False)['entries'][0]
+    try:
+        info = ydl.extract_info("ytsearch:%s" % requestedAudio, download=False)['entries'][0]
+    except yt_dlp.utils.DownloadError or yt_dlp.utils.ExtractorError:
+        print("BIG FAIL")
 
 res = res + "AUDIO_TITLE: " + info['title']
 res = res + " "
