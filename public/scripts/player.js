@@ -10,8 +10,10 @@ var queue = [];
 
 var currentAudio;
 var lastAddedAudio;
+var lastPlayedAudio;
 
 audio.addEventListener('ended', function () {
+    lastPlayedAudio = currentAudio.title;
     playNextAudio();
 })
 
@@ -71,10 +73,12 @@ function skipAudio() {
         if (!isAudioPlaying()) {
             return false;
         }
+        lastPlayedAudio = currentAudio.title;
         audio.pause();
         audio.currentTime = 0;
         return true;
-    }
+    } 
+    lastPlayedAudio = currentAudio.title;
     audio.pause();
     audio.currentTime = 0;
     playNextAudio();
@@ -109,27 +113,6 @@ function audioList() {
         }
     }
     return res;
-    // let res = [];
-    // let b = '<span class="command">';
-    // let e = '</span';
-    // let m = "";
-    // let r = "";
-
-    // res.push("<br>");
-    // if (queue.length == 0) {
-    //     r = b + "The list is empty." + e;
-    //     res.push(r);
-    // }
-    // else {
-    //     for (let i = 0; i < queue.length; i++) {
-    //         m = (i + 1).toString() + ". " + queue[i].title;
-    //         r = b + m + e;
-    //         res.push(r)
-    //     }
-    // } 
-    // res.push("<br>");
-
-    // return res;
 }
 
 function isAudioPlaying() {

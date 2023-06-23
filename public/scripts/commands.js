@@ -40,7 +40,7 @@ function Resume() {
 
 function Skip() {
     if (skipAudio()) {
-        msg = "<span class=\"inherit\">Skipped.</span>";
+        msg = "<span class=\"inherit\">Skipped: " + lastPlayedAudio + "</span>";
     } else {
         msg = "<span class=\"inherit\">Failed to skip.</span>";
     }
@@ -99,7 +99,7 @@ function List() {
         for (let i = 0; i < res.length; i++) {
             let title = (i + 1).toString() + ". " + res[i];
             msg = "<span class=\"inherit\">" + title + "</span>";
-            addLine(msg, "color3 margin", 80);
+            addLine(msg, "color2 margin", 80);
         }
     }
     return;
