@@ -16,16 +16,13 @@ audio.addEventListener('ended', function () {
 })
 
 var audioPlayer = async audioName => {
-    console.log("brefore fetch");
     const fetchedAudio = await fetchAudio(audioName);
-    console.log("after fetch");
     let title = parseTitle(fetchedAudio);
     let url = parseURL(fetchedAudio);
     let ao = new audioObj(title, url);
     lastAddedAudio = ao;
     queue.push(ao);
 
-    console.log(fetchedAudio);
     if (isAudioPlaying()) {
         return true;
     }
@@ -47,6 +44,7 @@ function playNextAudio() {
     let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
     addLine(msg, "color2 margin", 80);
 
+    console.log("playing:", currentAudio.title);
     return;
 }
 
@@ -105,22 +103,33 @@ function removeAudio() {
 
 function audioList() {
     let res = [];
-    let b = '<span class="command">';
-    let e = '</span';
-    let m = "";
-    let r = "";
-
-    res.push("<br>");
-    if (queue.length == 0) {
-        return res;
+    if (queue.length != 0) {
+        for (let i = 0; i < queue.length; i++) {
+            res.push(queue[i].title);
+        }
     }
-    for (let i = 0; i < queue.length; i++) {
-        m = (i + 1).toString() + queue[i].title;
-        r = b + m + e;
-        res.push(r)
-    }
-    res.push("<br>");
     return res;
+    // let res = [];
+    // let b = '<span class="command">';
+    // let e = '</span';
+    // let m = "";
+    // let r = "";
+
+    // res.push("<br>");
+    // if (queue.length == 0) {
+    //     r = b + "The list is empty." + e;
+    //     res.push(r);
+    // }
+    // else {
+    //     for (let i = 0; i < queue.length; i++) {
+    //         m = (i + 1).toString() + ". " + queue[i].title;
+    //         r = b + m + e;
+    //         res.push(r)
+    //     }
+    // } 
+    // res.push("<br>");
+
+    // return res;
 }
 
 function isAudioPlaying() {

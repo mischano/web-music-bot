@@ -63,14 +63,12 @@ function parseCommand(in_) {
     let command = wordList[0];
     let msg = "";
 
-    console.log(command);
+    console.log("parsed command:", command);
     switch (command) {
-        case "help":
-            break;
         case "play":
             msg = str.slice(5);
             if (msg.length > 0) {
-                Play(msg);
+                Play(msg);  // commands.js
             } else {
                 addLine(CMD_NOT_FOUND, "error", 100);
             }
@@ -102,6 +100,8 @@ function parseCommand(in_) {
             } else {
                 addLine(CMD_NOT_FOUND, "error", 100);
             }
+            break;
+        case "help":
             break;
         default:
             addLine(CMD_NOT_FOUND, "error", 100);

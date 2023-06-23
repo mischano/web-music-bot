@@ -1,12 +1,13 @@
 let msg = "";
 
 function Play(req) {
-    audioPlayer(req)
+    audioPlayer(req)    // player.js
         .then((res) => {
             if (res) {
                 msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio.title + "</span>";
                 addLine(msg, "color2 margin", 80);
                 msg = "";
+                console.log("added to queue:", lastAddedAudio.title);
             }
             return;
         })
@@ -89,7 +90,18 @@ function Add() {
 }
 
 function List() {
-    loopLines(audioList(), "", 80);
+    res = audioList();
+    if (res.length == 0) {
+        msg = "<span class=\"inherit\">The list is empty." + "</span>";
+        addLine(msg, "color2 margin", 80);
+    }
+    else {
+        for (let i = 0; i < res.length; i++) {
+            let title = (i + 1).toString() + ". " + res[i];
+            msg = "<span class=\"inherit\">" + title + "</span>";
+            addLine(msg, "color3 margin", 80);
+        }
+    }
     return;
 }
 
