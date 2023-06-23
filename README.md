@@ -1,1 +1,2 @@
-Test README.md file.
+To run the program: npm run dev
+
