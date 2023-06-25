@@ -102,7 +102,7 @@ function parseCommand(in_) {
             }
             break;
         case "help":
-            loopLines(help, "", 80);
+            loopLines(help, "color2 margin", 80);
             break;
         default:
             addLine(CMD_NOT_FOUND, "error", 100);
