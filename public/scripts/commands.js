@@ -117,14 +117,14 @@ function Shuffle() {
 
 help = [
     "<br>",
-    '<span class="command">play   [SONG NAME]</span>      Ex: play Robbie Williams Feel',
+    '<span class="command">play   [SONG NAME]</span>      Ex: play Naive The Krooks',
     '<span class="command">pause</span>',
     '<span class="command">resume</span>',
     '<span class="command">current</span>',
     '<span class="command">skip</span>',
     '<span class="command">list</span>',
-    '<span class="command">remove [SONG POS.]</span>      Ex: remove 2',
-    '<span class="command">shuffle</span>',
+    '<span class="command">remove [SONG POS.] (coming soon...)</span>      Ex: remove 2',
+    '<span class="command">shuffle (coming soon...)</span>',
     "<br>",
 ];
 
