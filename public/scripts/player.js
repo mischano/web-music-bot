@@ -107,11 +107,23 @@ function removeAudio() {
 
 function audioList() {
     let res = [];
-    if (queue.length != 0) {
+    let b = '<span class="command">';
+    let e = '</span';
+    let m = "";
+    let r = "";
+
+    if (queue.length == 0) {
+        r = b + "The list is empty." + e;
+        res.push(r);
+    }
+    else {
         for (let i = 0; i < queue.length; i++) {
-            res.push(queue[i].title);
+            m = (i + 1).toString() + '. ' + queue[i].title;
+            r = b + m + e;
+            res.push(r)  
         }
     }
+    
     return res;
 }
 
