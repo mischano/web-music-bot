@@ -84,7 +84,6 @@ function skipAudio() {
     playNextAudio();
 
     return true;
-
 }
 
 function setVolume(vol) {
