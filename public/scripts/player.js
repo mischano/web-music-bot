@@ -67,22 +67,20 @@ function resumeAudio() {
 
     return true;
 }
-
+/*
+ * Nothing is playing - 
+ * Audio is playing - 
+ * Audio is paused - 
+ * 
+ */
 function skipAudio() {
-    if (queue.length <= 0) {
-        if (!isAudioPlaying()) {
-            return false;
-        }
-        lastPlayedAudio = currentAudio.title;
-        audio.pause();
-        audio.currentTime = 0;
-        return true;
-    } 
+    if (queue.length <= 0 && !isAudioPlaying()) {
+        return false;
+    }
     lastPlayedAudio = currentAudio.title;
     audio.pause();
     audio.currentTime = 0;
-    playNextAudio();
-
+    
     return true;
 }
 
