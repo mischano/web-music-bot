@@ -1,0 +1,14 @@
+autopep8==2.0.2
+Brotli==1.0.9
+certifi==2022.12.7
+distlib==0.3.6
+filelock==3.9.0
+mutagen==1.46.0
+pipenv==2023.2.18
+platformdirs==3.0.0
+pycodestyle==2.10.0
+pycryptodomex==3.17
+virtualenv==20.20.0
+virtualenv-clone==0.5.7
+websockets==11.0
+yt-dlp @ https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
