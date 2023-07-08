@@ -26,6 +26,7 @@ var audioPlayer = async audioName => {
     queue.push(ao);
 
     console.log("URL: ", url);
+    console.log("TITLE: ", title);
     if (isAudioPlaying()) {
         return true;
     }
@@ -39,9 +40,11 @@ function playNextAudio() {
         return;
     }
 
+    console.log("AUDIO SRC BFR: ", audio);
     currentAudio = queue.shift();
     audio.src = currentAudio.url;
     audio.load();
+    console.log("AUDIO SRC AFTR: ", audio);
     audio.play();
 
     let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
