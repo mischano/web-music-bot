@@ -45,10 +45,20 @@ function playNextAudio() {
     audio.src = currentAudio.url;
     audio.load();
     console.log("AUDIO SRC AFTR: ", audio);
-    audio.play();
+    var playPromise = audio.play();
 
-    let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
-    addLine(msg, "color2 margin", 80);
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
+            addLine(msg, "color2 margin", 80);
+        })
+        .catch(error => {
+            console.log("ERROR: ", error);
+        });
+    }
+
+    // let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
+    // addLine(msg, "color2 margin", 80);
 
     console.log("playing:", currentAudio.title);
     return;
