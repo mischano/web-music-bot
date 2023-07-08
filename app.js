@@ -29,6 +29,11 @@ app.use('/', require('./routes/index'));    // Home page.
 app.use('/users', require('./routes/users'));   // To be implemented.
 app.use('/public', express.static(process.cwd() + '/public'));
 app.set('view engine', 'css');
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 const PORT = process.env.PORT || 5000;
 
