@@ -25,6 +25,7 @@ var audioPlayer = async audioName => {
     lastAddedAudio = ao;
     queue.push(ao);
 
+    console.log("URL: ", url);
     if (isAudioPlaying()) {
         return true;
     }
