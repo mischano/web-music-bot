@@ -53,7 +53,8 @@ const corsOpts = {
     ],
   };
   
-  app.use(cors(corsOpts));
+app.use(cors(corsOpts));
+app.use('/searchAudio');
 
 // Routes. 
 app.use('/', require('./routes/index'));    // Home page.
