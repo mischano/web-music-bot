@@ -6,7 +6,6 @@ class audioObj {
 }
 
 var audio = new Audio();
-audio.crossOrigin = 'anonymous';
 var queue = [];
 
 var currentAudio;
