@@ -5,7 +5,7 @@ class audioObj {
     }
 }
 
-var audio = new Audio();
+//var audio = new Audio();
 var queue = [];
 
 var currentAudio;
@@ -40,11 +40,12 @@ function playNextAudio() {
         return;
     }
 
-    console.log("AUDIO SRC BFR: ", audio);
+    // console.log("AUDIO SRC BFR: ", audio);
     currentAudio = queue.shift();
-    audio.src = currentAudio.url;
-    audio.load();
-    console.log("AUDIO SRC AFTR: ", audio);
+    // audio.src = currentAudio.url;
+    // audio.load();
+    const audio = new Audio(currentAudio.url);
+    // console.log("AUDIO SRC AFTR: ", audio);
     var playPromise = audio.play();
 
     if (playPromise !== undefined) {
