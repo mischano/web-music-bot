@@ -40,21 +40,13 @@ app.get('/searchAudio', function (req, res) {
 //     console.log("py script finished executing.")
 // })
 
-const corsOpts = {
-    origin: '*',
-  
-    methods: [
-      'GET',
-      'POST',
-    ],
-  
-    allowedHeaders: [
-      'Content-Type',
-    ],
-  };
-  
-app.use(cors(corsOpts));
-app.use('/searchAudio');
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 // Routes. 
 app.use('/', require('./routes/index'));    // Home page.
