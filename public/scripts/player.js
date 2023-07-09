@@ -5,7 +5,7 @@ class audioObj {
     }
 }
 
-//var audio = new Audio();
+var audio = new Audio();
 var queue = [];
 
 var currentAudio;
@@ -40,11 +40,10 @@ function playNextAudio() {
         return;
     }
 
-    // console.log("AUDIO SRC BFR: ", audio);
     currentAudio = queue.shift();
-    // audio.src = currentAudio.url;
-    // audio.load();
-    const audio = new Audio(currentAudio.url);
+    audio.src = currentAudio.url;
+    audio.load();
+    // const audio = new Audio(currentAudio.url);
     // console.log("AUDIO SRC AFTR: ", audio);
     var playPromise = audio.play();
 
@@ -58,8 +57,8 @@ function playNextAudio() {
         });
     }
 
-    // let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
-    // addLine(msg, "color2 margin", 80);
+    let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
+    addLine(msg, "color2 margin", 80);
 
     console.log("playing:", currentAudio.title);
     return;
