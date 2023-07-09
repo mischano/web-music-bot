@@ -5,17 +5,17 @@ class audioObj {
     }
 }
 
-var audio = new Audio();
+// var audio = new Audio();
 var queue = [];
 
 var currentAudio;
 var lastAddedAudio;
 var lastPlayedAudio;
 
-audio.addEventListener('ended', function () {
-    lastPlayedAudio = currentAudio.title;
-    playNextAudio();
-})
+// audio.addEventListener('ended', function () {
+//     lastPlayedAudio = currentAudio.title;
+//     playNextAudio();
+// })
 
 var audioPlayer = async audioName => {
     const fetchedAudio = await fetchAudio(audioName);
@@ -41,9 +41,9 @@ function playNextAudio() {
     }
 
     currentAudio = queue.shift();
-    audio.src = currentAudio.url;
-    audio.load();
-    // const audio = new Audio(currentAudio.url);
+    // audio.src = currentAudio.url;
+    // audio.load();
+    const audio = new Audio(currentAudio.url);
     // console.log("AUDIO SRC AFTR: ", audio);
     var playPromise = audio.play();
 
