@@ -40,8 +40,21 @@ app.get('/searchAudio', function (req, res) {
 //     console.log("py script finished executing.")
 // })
 
-app.options('*', cors())
-app.use(cors());
+const corsOpts = {
+    origin: '*',
+  
+    methods: [
+      'GET',
+      'POST',
+    ],
+  
+    allowedHeaders: [
+      'Content-Type',
+    ],
+  };
+  
+  app.use(cors(corsOpts));
+
 // Routes. 
 app.use('/', require('./routes/index'));    // Home page.
 app.use('/users', require('./routes/users'));   // To be implemented.
