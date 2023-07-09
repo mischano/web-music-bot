@@ -16,22 +16,7 @@ const runYTDLP = (reqAudio) => {
     })
 }
 
-// app.get('/searchAudio', function (req, res) {
-//     console.log("fetch request received. Running py script...")
-//     let queryParam = req.query.queryMsg
-//     runYTDLP(queryParam).then(function (fromYTDLP) {
-//         res.end(fromYTDLP)
-//     })
-//     console.log("py script finished executing.")
-// })
-
-var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-app.get('/searchAudio', cors(corsOptions), function (req, res, next) {
-    // res.json({msg: 'This is CORS-enabled for only example.com.'})
+app.get('/searchAudio', function (req, res) {
     console.log("fetch request received. Running py script...")
     let queryParam = req.query.queryMsg
     runYTDLP(queryParam).then(function (fromYTDLP) {
@@ -40,6 +25,23 @@ app.get('/searchAudio', cors(corsOptions), function (req, res, next) {
     console.log("py script finished executing.")
 })
 
+// var corsOptions = {
+//     origin: '*',
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+
+// app.get('/searchAudio', cors(corsOptions), function (req, res, next) {
+//     // res.json({msg: 'This is CORS-enabled for only example.com.'})
+//     console.log("fetch request received. Running py script...")
+//     let queryParam = req.query.queryMsg
+//     runYTDLP(queryParam).then(function (fromYTDLP) {
+//         res.end(fromYTDLP)
+//     })
+//     console.log("py script finished executing.")
+// })
+
+app.options('*', cors())
+app.use(cors());
 // Routes. 
 app.use('/', require('./routes/index'));    // Home page.
 app.use('/users', require('./routes/users'));   // To be implemented.
