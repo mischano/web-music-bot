@@ -60,13 +60,12 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
     except yt_dlp.utils.DownloadError or yt_dlp.utils.ExtractorError:
         suc = False
 
-print(info)
-# if suc is False:
-#     obj['success'] = False
-# else:
-#     obj['success'] = True
-#     obj['title'] = info['title']
-#     obj['url'] = info['formats'][3]['url']
+if suc is False:
+    obj['success'] = False
+else:
+    obj['success'] = True
+    obj['title'] = info['title']
+    obj['url'] = info['formats'][3]['url']
 
-# res = json.dumps(obj)
-# print(res)
+res = json.dumps(obj)
+print(res)
