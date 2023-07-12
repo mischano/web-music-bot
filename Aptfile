@@ -1,0 +1,8 @@
+libavutil
+libavcodec
+libavformat
+libavdevice
+libavfilter
+libswscale
+libswresample
+libpostproc

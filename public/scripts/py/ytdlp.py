@@ -34,7 +34,7 @@ def format_selector(ctx):
 requestedAudio = ' '.join(sys.argv[1:])
 
 ydl_opts = {
-    'format': format_selector,
+    'format': 'bestaudio/best',
     'quiet': True,
     'noplaylist': True,
     'postprocessors': [{
