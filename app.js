@@ -1,54 +1,45 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const cors = require('cors');
 
 const runYTDLP = (reqAudio) => {
-    return new Promise((suc, nosuc) => {
-        let pyScriptDir = __dirname + '/public/scripts/ytdlp.py'
+    return new Promise((success, nosuccess) => {
+        let pyScriptDir = __dirname + '/public/scripts/py/ytdlp.py';
 
-        const { spawn } = require('child_process')
-        const pyprog = spawn('python', [pyScriptDir, reqAudio])
+        const { spawn } = require('child_process');
+        const pyprog = spawn('python', [pyScriptDir, reqAudio]);
 
         pyprog.stdout.on('data', function (data) {
-            suc(data)
-        })
-    })
+            success(data);
+        });
+
+        pyprog.stderr.on('data', (data) => {
+            nosuccess(data);
+        });
+    });
 }
 
-app.get('/searchAudio', function (req, res) {
-    console.log("fetch request received. Running py script...")
-    let queryParam = req.query.queryMsg
-    runYTDLP(queryParam).then(function (fromYTDLP) {
-        res.end(fromYTDLP)
-    })
-    console.log("py script finished executing.")
+app.post('/searchAudio', function (req, res) {
+    console.log("backend: fetching...");
+    let body = '';
+    req.on('data', (chunk) => {
+        body += chunk;
+    });
+    req.on('end', () => {
+        let x = body.split("$");
+        let incomingMessage = x[1];
+        console.log("backend: incoming message:", incomingMessage);
+
+        console.log("backend: running py script...");
+        runYTDLP(incomingMessage).then(function (fromYTDLP) {
+            res.end(fromYTDLP);
+        })
+        console.log("finished py script...");
+    });
 })
 
-// var corsOptions = {
-//     origin: '*',
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
-
-// app.get('/searchAudio', cors(corsOptions), function (req, res, next) {
-//     // res.json({msg: 'This is CORS-enabled for only example.com.'})
-//     console.log("fetch request received. Running py script...")
-//     let queryParam = req.query.queryMsg
-//     runYTDLP(queryParam).then(function (fromYTDLP) {
-//         res.end(fromYTDLP)
-//     })
-//     console.log("py script finished executing.")
-// })
-
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
-
 // Routes. 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./routes/index'));    // Home page.
 app.use('/users', require('./routes/users'));   // To be implemented.
 app.use('/public', express.static(process.cwd() + '/public'));

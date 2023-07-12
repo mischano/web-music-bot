@@ -1,7 +1,7 @@
 let msg = "";
 
 function Play(req) {
-    audioPlayer(req)    // player.js
+    audioManager(req)    // player.js
         .then((res) => {
             if (res) {
                 msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio.title + "</span>";

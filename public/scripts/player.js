@@ -5,28 +5,26 @@ class audioObj {
     }
 }
 
-// var audio = new Audio();
+var audio = new Audio();
 var queue = [];
 
 var currentAudio;
 var lastAddedAudio;
 var lastPlayedAudio;
 
-// audio.addEventListener('ended', function () {
-//     lastPlayedAudio = currentAudio.title;
-//     playNextAudio();
-// })
+audio.addEventListener('ended', function () {
+    lastPlayedAudio = currentAudio.title;
+    playNextAudio();
+})
 
-var audioPlayer = async audioName => {
-    const fetchedAudio = await fetchAudio(audioName);
-    let title = parseTitle(fetchedAudio);
-    let url = parseURL(fetchedAudio);
+async function audioManager(requestedAudio) {
+    const fetchResult = await fetchAudio(requestedAudio);
+    let title = fetchResult['title'];
+    let url = fetchResult['url'];
     let ao = new audioObj(title, url);
     lastAddedAudio = ao;
     queue.push(ao);
 
-    console.log("URL: ", url);
-    console.log("TITLE: ", title);
     if (isAudioPlaying()) {
         return true;
     }
@@ -35,32 +33,41 @@ var audioPlayer = async audioName => {
     return false;
 }
 
+function fetchAudio(requestedAudio) {
+    let data = "requestedAudio$" + requestedAudio + "$";
+    const response = fetch("/searchAudio", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(data)
+    })
+        .then((res) => res.json())
+        .then((resData) => {
+            return resData;
+        });
+
+    return response;  
+}
+
 function playNextAudio() {
     if (queue.length == 0 || isAudioPlaying()) {
         return;
     }
 
     currentAudio = queue.shift();
-    // audio.src = currentAudio.url;
-    // audio.load();
-    const audio = new Audio(currentAudio.url);
-    // console.log("AUDIO SRC AFTR: ", audio);
-    var playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-            let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
-            addLine(msg, "color2 margin", 80);
-        })
-        .catch(error => {
-            console.log("ERROR: ", error);
-        });
-    }
+    audio.src = currentAudio.url;
+    audio.load();
+    audio.play();
 
     let msg = "<span class=\"inherit\">Now playing: " + currentAudio.title + "</span>";
     addLine(msg, "color2 margin", 80);
 
-    console.log("playing:", currentAudio.title);
     return;
 }
 
@@ -81,12 +88,7 @@ function resumeAudio() {
 
     return true;
 }
-/*
- * Nothing is playing - 
- * Audio is playing - 
- * Audio is paused - 
- * 
- */
+
 function skipAudio() {
     if (queue.length <= 0 && !isAudioPlaying()) {
         return false;
@@ -94,7 +96,7 @@ function skipAudio() {
     lastPlayedAudio = currentAudio.title;
     audio.pause();
     audio.currentTime = 0;
-    
+
     return true;
 }
 
@@ -131,10 +133,10 @@ function audioList() {
         for (let i = 0; i < queue.length; i++) {
             m = (i + 1).toString() + '. ' + queue[i].title;
             r = b + m + e;
-            res.push(r)  
+            res.push(r)
         }
     }
-    
+
     return res;
 }
 
@@ -143,30 +145,4 @@ function isAudioPlaying() {
         return true;
     }
     return false;
-}
-
-function fetchAudio(val) {
-    const x = fetch(`/searchAudio?queryMsg=${val}`)
-        .then(data => data.text())
-        .then((src) => {
-            return src;
-        })
-
-    return x;
-}
-
-function parseTitle(_in) {
-    let title = _in.substring(
-        _in.indexOf('AUDIO_TITLE:') + 13,
-        _in.indexOf('AUDIO_URL:')
-    );
-    return title;
-}
-
-function parseURL(_in) {
-    let url = _in.substring(
-        _in.indexOf('AUDIO_URL:') + 11,
-        _in.length
-    );
-    return url;
 }
