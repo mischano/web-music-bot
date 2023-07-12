@@ -2,6 +2,7 @@ import sys
 import json
 import yt_dlp
 
+
 def format_selector(ctx):
     """ Select the best video and the best audio that won't result in an mkv.
     NOTE: This is just an example and does not handle all cases """
@@ -29,12 +30,18 @@ def format_selector(ctx):
         'protocol': f'{best_video["protocol"]}+{best_audio["protocol"]}'
     }
 
+
 requestedAudio = ' '.join(sys.argv[1:])
 
 ydl_opts = {
     'format': format_selector,
     'quiet': True,
     'noplaylist': True,
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
 }
 
 obj = {
@@ -46,7 +53,8 @@ obj = {
 suc = True
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
     try:
-        info = ydl.extract_info("ytsearch:%s" % requestedAudio, download=False)['entries'][0]
+        info = ydl.extract_info("ytsearch:%s" %
+                                requestedAudio, download=False)['entries'][0]
         suc = True
     except yt_dlp.utils.DownloadError or yt_dlp.utils.ExtractorError:
         suc = False
