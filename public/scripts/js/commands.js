@@ -96,8 +96,12 @@ function Shuffle() {
     return;
 }
 
+function getRandomSong() {
+    return "\t         Example: " + favSongs[Math.floor(Math.random() * favSongs.length)];
+}
+
 help = [
-    '<span class="command">play   [SONG NAME]</span>      Ex: play Naive The Krooks',
+    '<span class="command">play   [SONG NAME]</span>',
     '<span class="command">pause</span>',
     '<span class="command">resume</span>',
     '<span class="command">current</span>',
@@ -111,6 +115,14 @@ help = [
 
 ];
 
+favSongs = ["Ophelia The Lumineers", "I wanna be yours Arctic Monkeys", "Stereo love Edward Maya", 
+                "Because you move me Tinlicker", "Budapest George Ezra", "Naive The Krooks", "Good luck Broken Bells", 
+                "Tidal wave Portugal The Man", "Take it all Gorgon City", "Just breathe Crooked Colours", 
+                "Calm down Rema", "I miss you Blink-182", "My blood Twenty One Pilots", "Cool kids Echosmith",
+                "Love me again John Newman", "Dreamers Savoir Adore", "Dreams Fleetwood Mac", "Seminole NoMBe", 
+                "Rendezvous Rufus Du Sol", "Lily was here Dave Stewart", "Matarebeli Megi Gogitidze", "Lost on you LP", 
+                "Love at first sight TEEMID", "Fade out lines The Avener", "Bones Oliver Koltzki", "Elara Parra for Cuva", 
+                "Fading nights Parra for Cuva", ]
 banner = [
     "_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|",
     "___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|;;;;;;;;;;;;;;;;;|___|",

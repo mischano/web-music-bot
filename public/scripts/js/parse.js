@@ -98,7 +98,9 @@ function parseCommand(in_) {
             }
             break;
         case "help":
-            loopLines(help, "color2 margin", 80);
+            let res = [...help];
+            res[0] = res[0] + getRandomSong();
+            loopLines(res, "color2 margin", 80);
             break;
         default:
             addLine(CMD_NOT_FOUND, "error", 100);
