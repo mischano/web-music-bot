@@ -13,14 +13,15 @@ var pw = false;
 let pwd = false;
 var commands = [];  // Command history
 
-setTimeout(function () {
-    loopLines(banner, "", 80);
-    textarea.focus();
-}, 100);
+window.addEventListener('load', function () {
+    setTimeout(function () {
+        loopLines(banner, "", 80);
+        textarea.focus();
+    }, 100);
+})
 
 window.addEventListener("keyup", enterKey);
 
-//init
 textarea.value = "";
 command.innerHTML = textarea.value;
 
@@ -29,7 +30,7 @@ function enterKey(e) {
     if (e.keyCode == 13) {
         commands.push(command.innerHTML);
         git = commands.length;
-        addLine("mansur:~$ " + command.innerHTML, "no-animation", 0);
+        addLine("stranger:~$ " + command.innerHTML, "no-animation", 0);
         // defaultPrompt();
         parseCommand(command.innerHTML);
         command.innerHTML = "";
@@ -53,17 +54,12 @@ function enterKey(e) {
     }
 }
 
-function stripWhitespace(in_) {
-    return in_.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
-}
-
 function parseCommand(in_) {
-    let str = stripWhitespace(in_)
+    let str = in_.replace(/^\s+|\s+$/g, "").replace(/\s+/g, " ");
     let wordList = str.split(" ");
     let command = wordList[0];
     let msg = "";
 
-    console.log("parsed command:", command);
     switch (command) {
         case "play":
             msg = str.slice(5);

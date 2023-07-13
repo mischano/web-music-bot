@@ -7,7 +7,6 @@ function Play(req) {
                 msg = "<span class=\"inherit\">Added to queue: " + lastAddedAudio.title + "</span>";
                 addLine(msg, "color2 margin", 80);
                 msg = "";
-                console.log("added to queue:", lastAddedAudio.title);
             }
             return;
         })
@@ -80,12 +79,10 @@ function Volume(vol) {
 }
 
 function Remove(arg) {
-    console.log("remove");
     return;
 }
 
 function Add() {
-    console.log("add");
     return;
 }
 
@@ -96,14 +93,8 @@ function List() {
 }
 
 function Shuffle() {
-    console.log("shuffle");
     return;
 }
-
-// window.addEventListener('load', createAudioObj, false);
-// function createAudioObj() {
-//     audio = new Audio();
-// }
 
 help = [
     '<span class="command">play   [SONG NAME]</span>      Ex: play Naive The Krooks',
@@ -116,12 +107,12 @@ help = [
     '<span class="command">add (coming soon...)</span>',
     '<span class="command">remove [SONG POS.] (coming soon...)</span>      Ex: remove 2',
     '<span class="command">shuffle (coming soon...)</span>',
-    '<span class="command">loop</span>',
+    '<span class="command">loop (coming soon...)</span>',
 
 ];
 
 banner = [
-    "_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|  ",
+    "_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|",
     "___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|;;;;;;;;;;;;;;;;;|___|",
     "_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|__;;;;;;;;;;;;;;;;;__|__",
     "___██████╗ ███████╗████████╗████████╗███████╗██████╗___|_██████╗__█████╗_██████╗_██████╗|;;_|___|___|__;;|___|",

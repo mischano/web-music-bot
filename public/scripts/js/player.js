@@ -25,7 +25,6 @@ async function audioManager(requestedAudio) {
     lastAddedAudio = ao;
     queue.push(ao);
 
-    console.log(url);
     if (isAudioPlaying()) {
         return true;
     }
