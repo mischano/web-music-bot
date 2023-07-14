@@ -52,7 +52,7 @@ function fetchAudio(requestedAudio) {
             return resData;
         });
 
-    return response;  
+    return response;
 }
 
 function playNextAudio() {
@@ -110,6 +110,21 @@ function setVolume(vol) {
         v = vol;
     }
     audio.volume = v;
+    return true;
+}
+
+function shuffleAudio() {
+    if (queue.length <= 1) {
+        return false;
+    }
+
+    let currentIndex = queue.length, randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [queue[currentIndex], queue[randomIndex]] = [queue[randomIndex], queue[currentIndex]];
+    }
     return true;
 }
 

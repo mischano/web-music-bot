@@ -87,6 +87,7 @@ function parseCommand(in_) {
         case "remove":
             break;
         case "shuffle":
+            Shuffle();
             break;
         case "volume":
             msg = str.slice(7);

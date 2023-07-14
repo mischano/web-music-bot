@@ -93,6 +93,14 @@ function List() {
 }
 
 function Shuffle() {
+    if (shuffleAudio()) {
+        msg = "<span class=\"inherit\">Shuffled.</span>";
+    }
+    else {
+        msg = "<span class=\"inherit\">The list is too small. </span>";
+    }
+    addLine(msg, "color2 margin", 80);
+
     return;
 }
 
