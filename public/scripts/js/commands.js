@@ -116,9 +116,9 @@ help = [
     '<span class="command">skip</span>',
     '<span class="command">list</span>',
     '<span class="command">volume 0-100</span>',
+    '<span class="command">shuffle</span>',
     '<span class="command">add (coming soon...)</span>',
     '<span class="command">remove [SONG POS.] (coming soon...)</span>      Ex: remove 2',
-    '<span class="command">shuffle (coming soon...)</span>',
     '<span class="command">loop (coming soon...)</span>',
 
 ];
