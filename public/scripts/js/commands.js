@@ -105,7 +105,7 @@ function Shuffle() {
 }
 
 function getRandomSong() {
-    return "\t         Example: " + favSongs[Math.floor(Math.random() * favSongs.length)];
+    return "\t         Example: play " + favSongs[Math.floor(Math.random() * favSongs.length)];
 }
 
 help = [
