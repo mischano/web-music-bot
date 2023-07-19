@@ -23,8 +23,8 @@ body {
 textarea {
     left: -1000px;
     position: absolute;
-    width: 130%;
-    height: 600px;
+    width: 125%;
+    height: 400px;
     outline: none;
     border: none;
     resize: none;
