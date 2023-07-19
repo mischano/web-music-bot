@@ -120,7 +120,7 @@ help = [
     '<span class="command">add (coming soon...)</span>',
     '<span class="command">remove [SONG POS.] (coming soon...)</span>      Ex: remove 2',
     '<span class="command">loop (coming soon...)</span>',
-
+    '<span class="command">suggest (coming soon...)</span>',
 ];
 
 favSongs = ["Ophelia The Lumineers", "I wanna be yours Arctic Monkeys", "Stereo love Edward Maya", 
