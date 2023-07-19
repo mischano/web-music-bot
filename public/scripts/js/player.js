@@ -11,6 +11,7 @@ var queue = [];
 var currentAudio;
 var lastAddedAudio;
 var lastPlayedAudio;
+var loopCurrentAudio = false;
 
 audio.addEventListener('ended', function () {
     lastPlayedAudio = currentAudio.title;
@@ -56,6 +57,10 @@ function fetchAudio(requestedAudio) {
 }
 
 function playNextAudio() {
+    if (loopCurrentAudio) {
+        queue.unshift(lastAddedAudio);
+    }
+    
     if (queue.length == 0 || isAudioPlaying()) {
         return;
     }
@@ -126,6 +131,15 @@ function shuffleAudio() {
         [queue[currentIndex], queue[randomIndex]] = [queue[randomIndex], queue[currentIndex]];
     }
     return true;
+}
+
+function loopAudio() {
+    if (isAudioPlaying()) {
+        loopCurrentAudio = !loopCurrentAudio;
+        return loopCurrentAudio;
+    }
+
+    return false;
 }
 
 function removeAudio() {

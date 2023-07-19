@@ -37,6 +37,18 @@ function Resume() {
     return;
 }
 
+function Current() {
+    if (isAudioPlaying()) {
+        msg = "<span class=\"inherit\">Currently playing: " + currentAudio.title + "</span>";
+    } else {
+        msg = "<span class=\"inherit\">Playlist is empty.</span>";
+    }
+    addLine(msg, "color2 margin", 80);
+    msg = "";
+
+    return;
+}
+
 function Skip() {
     if (skipAudio()) {
         msg = "<span class=\"inherit\">Skipped: " + lastPlayedAudio + "</span>";
@@ -49,15 +61,9 @@ function Skip() {
     return;
 }
 
-function Current() {
-    if (isAudioPlaying()) {
-        msg = "<span class=\"inherit\">Currently playing: " + currentAudio.title + "</span>";
-    } else {
-        msg = "<span class=\"inherit\">Playlist is empty.</span>";
-    }
-    addLine(msg, "color2 margin", 80);
-    msg = "";
-
+function List() {
+    res = audioList();
+    loopLines(res, "color1 margin", 250);
     return;
 }
 
@@ -74,21 +80,7 @@ function Volume(vol) {
     msg = "<span class=\"inherit\">Volume is set to: " + tm + " </span>";
     addLine(msg, "color2 margin", 80);
     msg = "";
-    
-    return;
-}
 
-function Remove(arg) {
-    return;
-}
-
-function Add() {
-    return;
-}
-
-function List() {
-    res = audioList();
-    loopLines(res, "color1 margin", 250);
     return;
 }
 
@@ -104,8 +96,29 @@ function Shuffle() {
     return;
 }
 
+function Loop() {
+    if (loopAudio()) {
+        msg = "<span class=\"inherit\">The current audio is set to loop.</span>";
+    }
+    else {
+        msg = "<span class=\"inherit\">The loop is unset.</span>";
+    }
+    addLine(msg, "color2 margin", 80);
+
+    return;
+}
+
+
 function getRandomSong() {
     return "\t         Example: play " + favSongs[Math.floor(Math.random() * favSongs.length)];
+}
+
+function Remove(arg) {
+    return;
+}
+
+function Add() {
+    return;
 }
 
 help = [
@@ -117,20 +130,20 @@ help = [
     '<span class="command">list</span>',
     '<span class="command">volume 0-100</span>',
     '<span class="command">shuffle</span>',
+    '<span class="command">loop</span>',
     '<span class="command">add (coming soon...)</span>',
     '<span class="command">remove [SONG POS.] (coming soon...)</span>      Ex: remove 2',
-    '<span class="command">loop (coming soon...)</span>',
     '<span class="command">suggest (coming soon...)</span>',
 ];
 
-favSongs = ["Ophelia The Lumineers", "I wanna be yours Arctic Monkeys", "Stereo love Edward Maya", 
-                "Because you move me Tinlicker", "Budapest George Ezra", "Naive The Krooks", "Good luck Broken Bells", 
-                "Tidal wave Portugal The Man", "Take it all Gorgon City", "Just breathe Crooked Colours", 
-                "Calm down Rema", "I miss you Blink-182", "My blood Twenty One Pilots", "Cool kids Echosmith",
-                "Love me again John Newman", "Dreamers Savoir Adore", "Dreams Fleetwood Mac", "Seminole NoMBe", 
-                "Rendezvous Rufus Du Sol", "Lily was here Dave Stewart", "Matarebeli Megi Gogitidze", "Lost on you LP", 
-                "Love at first sight TEEMID", "Fade out lines The Avener", "Bones Oliver Koltzki", "Elara Parra for Cuva", 
-                "Fading nights Parra for Cuva", ]
+favSongs = ["Ophelia The Lumineers", "I wanna be yours Arctic Monkeys", "Stereo love Edward Maya",
+    "Because you move me Tinlicker", "Budapest George Ezra", "Naive The Krooks", "Good luck Broken Bells",
+    "Tidal wave Portugal The Man", "Take it all Gorgon City", "Just breathe Crooked Colours",
+    "Calm down Rema", "I miss you Blink-182", "My blood Twenty One Pilots", "Cool kids Echosmith",
+    "Love me again John Newman", "Dreamers Savoir Adore", "Dreams Fleetwood Mac", "Seminole NoMBe",
+    "Rendezvous Rufus Du Sol", "Lily was here Dave Stewart", "Matarebeli Megi Gogitidze", "Lost on you LP",
+    "Love at first sight TEEMID", "Fade out lines The Avener", "Bones Oliver Koltzki", "Elara Parra for Cuva",
+    "Fading nights Parra for Cuva",]
 banner = [
     "_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|",
     "___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|;;;;;;;;;;;;;;;;;|___|",
@@ -147,6 +160,6 @@ banner = [
     " ",
     '<span class="color2">Author: Mansur Ischanov.</span>',
     "<span class=\"color2\">Type</span> <span class=\"command\">help </span><span class=\"color2\"></span><span class=\"color2\">to display the list of commands.</span>",
-    ]; 
+];
 
 

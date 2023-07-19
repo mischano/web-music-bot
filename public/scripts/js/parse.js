@@ -75,19 +75,14 @@ function parseCommand(in_) {
         case "resume":
             Resume();
             break;
+        case "current":
+            Current();
+            break;
         case "skip":
             Skip();
             break;
         case "list":
             List();
-            break;
-        case "current":
-            Current();
-            break;
-        case "remove":
-            break;
-        case "shuffle":
-            Shuffle();
             break;
         case "volume":
             msg = str.slice(7);
@@ -97,6 +92,12 @@ function parseCommand(in_) {
             } else {
                 addLine(CMD_NOT_FOUND, "error", 100);
             }
+            break;
+        case "shuffle":
+            Shuffle();
+            break;
+        case "loop":
+            Loop();
             break;
         case "help":
             let res = [...help];
