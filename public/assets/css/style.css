@@ -23,6 +23,12 @@ body {
 textarea {
     left: -1000px;
     position: absolute;
+    width: 130%;
+    height: 600px;
+    outline: none;
+    border: none;
+    resize: none;
+    background-color: #211D1B;
 }
 
 b {
