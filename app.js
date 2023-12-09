@@ -19,21 +19,23 @@ const runYTDLP = (reqAudio) => {
 }
 
 app.post('/searchAudio', function (req, res) {
-    console.log("backend: fetching...");
+    console.log("fetching...");
     let body = '';
     req.on('data', (chunk) => {
         body += chunk;
     });
+
     req.on('end', () => {
         let x = body.split("$");
         let incomingMessage = x[1];
-        console.log("backend: incoming message:", incomingMessage);
+        console.log("incoming message:", incomingMessage);
 
-        console.log("backend: running py script...");
+        console.log("executing .py script...");
         runYTDLP(incomingMessage).then(function (fromYTDLP) {
             res.end(fromYTDLP);
         })
-        console.log("backend: finished py script...");
+        
+        console.log("finished executing .py script.");
     });
 })
 
