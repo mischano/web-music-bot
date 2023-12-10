@@ -30,7 +30,7 @@ function enterKey(e) {
     if (e.keyCode == 13) {
         commands.push(command.innerHTML);
         git = commands.length;
-        addLine("stranger:~$ " + command.innerHTML, "no-animation", 0);
+        addLine("$ " + command.innerHTML, "no-animation", 0);
         // defaultPrompt();
         parseCommand(command.innerHTML);
         command.innerHTML = "";

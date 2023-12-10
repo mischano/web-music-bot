@@ -7,7 +7,8 @@ window.onload = init;
 
 function init() {
     cursor = $("cursor");
-    cursor.style.left = "0px";
+    cursor.style.left = "px";
+    // cursor.style.right = "20px";
 }
 
 // var git = 0;

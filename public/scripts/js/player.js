@@ -19,6 +19,9 @@ audio.addEventListener('ended', function () {
 })
 
 async function audioManager(requestedAudio) {
+    let msg = "<span class=\"inherit\">Fetching the requested audio...</span>";
+    addLine(msg, "color2 margin", 80);
+    
     const fetchResult = await fetchAudio(requestedAudio);
     let title = fetchResult['title'];
     let url = fetchResult['url'];

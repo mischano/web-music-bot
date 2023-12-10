@@ -21,14 +21,15 @@ body {
 }
 
 textarea {
-    left: -1000px;
+    left: 1px;
+    color: #1d30be00;
     position: absolute;
-    width: 115%;
-    height: 280px;
+    width: 90%;
+    height: 50%;
     outline: none;
     border: none;
     resize: none;
-    background-color: #211D1B;
+    background-color: #211d1b00;
 }
 
 b {
@@ -43,7 +44,7 @@ b {
     position: relative;
     opacity: 1;
     height: 1.5em;
-    width: 10px;
+    width: 7px;
     max-width: 10px;
     transform: translateY(4px);
     overflow: hidden;
@@ -62,7 +63,7 @@ b {
 #command {
     cursor: text;
     height: 50px;
-    color: #73ABAD;
+    color: #519975;
 }
 
 #liner {
@@ -75,7 +76,7 @@ b {
 
 #liner::before {
     color: #519975;
-    content: "stranger:~$";
+    content: "$ ";
 }
 
 #liner.password::before {
