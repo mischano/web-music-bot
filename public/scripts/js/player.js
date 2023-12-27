@@ -11,7 +11,7 @@ var queue = [];
 var currentAudio;
 var lastAddedAudio;
 var lastPlayedAudio;
-var loopCurrentAudio = false;
+var isLoopEnabled = false;
 
 audio.addEventListener('ended', function () {
     lastPlayedAudio = currentAudio.title;
@@ -60,10 +60,10 @@ function fetchAudio(requestedAudio) {
 }
 
 function playNextAudio() {
-    if (loopCurrentAudio) {
-        queue.unshift(lastAddedAudio);
+    if (isLoopEnabled) {
+        queue.unshift(currentAudio);
     }
-    
+
     if (queue.length == 0 || isAudioPlaying()) {
         return;
     }
@@ -101,6 +101,10 @@ function skipAudio() {
     if (queue.length <= 0 && !isAudioPlaying()) {
         return false;
     }
+
+    if (isLoopEnabled) {
+        isLoopEnabled = false;
+    }
     lastPlayedAudio = currentAudio.title;
     audio.pause();
     audio.currentTime = 0;
@@ -137,12 +141,8 @@ function shuffleAudio() {
 }
 
 function loopAudio() {
-    if (isAudioPlaying()) {
-        loopCurrentAudio = !loopCurrentAudio;
-        return loopCurrentAudio;
-    }
-
-    return false;
+    isLoopEnabled = !isLoopEnabled;
+    return isLoopEnabled;
 }
 
 function removeAudio() {
@@ -166,7 +166,7 @@ function audioList() {
             m = (i + 1).toString() + '. ' + queue[i].title;
             r = b + m + e;
             res.push(r)
-        }
+        } 
     }
 
     return res;

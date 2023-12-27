@@ -98,10 +98,10 @@ function Shuffle() {
 
 function Loop() {
     if (loopAudio()) {
-        msg = "<span class=\"inherit\">The current audio is set to loop.</span>";
+        msg = "<span class=\"inherit\">Loop is enabled.</span>"; 
     }
     else {
-        msg = "<span class=\"inherit\">The loop is unset.</span>";
+        msg = "<span class=\"inherit\">Loop is disabled.</span>";
     }
     addLine(msg, "color2 margin", 80);
 

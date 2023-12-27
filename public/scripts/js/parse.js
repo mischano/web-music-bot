@@ -97,6 +97,7 @@ function parseCommand(in_) {
             Shuffle();
             break;
         case "loop":
+            console.log("Loop");
             Loop();
             break;
         case "help":
